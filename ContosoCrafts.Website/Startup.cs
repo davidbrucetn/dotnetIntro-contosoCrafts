@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using ContosoCrafts.Website.Models;
-using ContosoCrafts.WebSite.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -13,6 +12,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ContosoCrafts.Website.Services;
 
 namespace ContosoCrafts.Website
 {
@@ -30,7 +30,9 @@ namespace ContosoCrafts.Website
         {
             services.AddRazorPages();
             services.AddTransient<JsonFileProductService>();
-            services.AddControllers();        }
+            services.AddControllers();
+            services.AddServerSideBlazor();
+        }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -57,6 +59,7 @@ namespace ContosoCrafts.Website
             {
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
+                endpoints.MapBlazorHub();
                 //Add endpoint for get
                 //endpoints.MapGet("/products", (context) =>
                 //{
